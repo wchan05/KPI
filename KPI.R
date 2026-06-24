@@ -1,16 +1,7 @@
-library(readxl)
-library(openxlsx)
-library(tidyverse)
-
-file <- read_excel("fake_policy_data_150_rows.xlsx")
-regions <- read_excel("go_code_zone_mapping.xlsx")
-view(file)
-view(regions)
-
-
 # Add the required columns ------------------------------------------------
 get_region <- function(file)
 {
+  regions <- read_excel("go_code_zone_mapping.xlsx")
   file = file %>% left_join(regions, by = c("go_code" = "GO CODE"))
   return(file)
 }
@@ -302,7 +293,7 @@ RR_PA <- function(file)
 
 RR_NA <- function(file)
 {
-  sub <- file %>% filter(ia.na(ZONE))
+  sub <- file %>% filter(is.na(ZONE))
   num <- sub %>% filter(!is.na(`Record Received`))
   numerator <- nrow(num)
   
@@ -322,19 +313,3 @@ get_vol_WC <- function(file) sum(file$ZONE == "WC", na.rm = TRUE)
 get_vol_SC <- function(file) sum(file$ZONE == "SC", na.rm = TRUE)
 get_vol_PA <- function(file) sum(file$ZONE == "PA", na.rm = TRUE)
 get_vol_NA <- function(file) sum(is.na(file$ZONE))
-
-
-
-# Testing -----------------------------------------------------------------
-test <- get_region(file)
-test <- get_TATs(test)
-view(test)
-get_vol(test)
-get_vol_NE(test)
-get_vol_WC(test)
-get_vol_SC(test)
-get_vol_PA(test)
-get_vol_NA(test)
-
-
-  
