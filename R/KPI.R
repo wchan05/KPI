@@ -334,7 +334,7 @@ calc_kpi <- function(file_path)
   compiled <- get_TATs(get_region(file_path))
   
   data.frame(
-    metric = c(
+    metric = c("tot_volume",
       "avg_tat",
       "med_tat",
       "avg_transm_tat",
@@ -361,7 +361,7 @@ calc_kpi <- function(file_path)
       "vol_NE", "vol_WC", "vol_SC", "vol_PA", "vol_NA"
     ),
     
-    value = c(
+    value = c(get_vol(compiled),
       get_tot_TAT_avg(compiled),
       get_tot_TAT_med(compiled),
       get_transm_TAT_avg(compiled),
