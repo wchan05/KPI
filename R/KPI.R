@@ -1,8 +1,19 @@
 # Add the required columns ------------------------------------------------
-get_region <- function(file)
+get_region <- function(file_path)
 {
-  regions <- read_excel("go_code_zone_mapping.xlsx")
-  file = file %>% left_join(regions, by = c("go_code" = "GO CODE"))
+  file <- readxl::read_excel(file_path)
+  
+  regions <- readxl::read_excel(
+    system.file(
+      "extdata",
+      "go_code_zone_mapping.xlsx",
+      package = "KPIcalc"))
+  
+  file <- dplyr::left_join(
+    file,
+    regions,
+    by = c("go_code" = "GO CODE"))
+  
   return(file)
 }
 
@@ -24,26 +35,22 @@ get_TATs <- function(file)
 # TAT - Average and Median Total and Transmission -------------------------
 get_tot_TAT_avg <- function(file)
 {
-  return(paste("The average of the total TAT is", 
-               round(mean(file$tot_TAT, na.rm = TRUE)), "days"))
+  return(round(mean(file$tot_TAT, na.rm = TRUE)))
 }
 
 get_tot_TAT_med <- function(file)
 {
-  return(paste("The median of the total TAT is", 
-               round(median(file$tot_TAT, na.rm = TRUE)), "days"))
+  return(round(median(file$tot_TAT, na.rm = TRUE)))
 }
 
 get_transm_TAT_avg <- function(file)
 {
-  return(paste("The average of the transmission TAT is", 
-               round(mean(file$transmission_TAT, na.rm = TRUE)), "days"))
+  return(round(mean(file$transmission_TAT, na.rm = TRUE)))
 }
 
 get_transm_TAT_med <- function(file)
 {
-  return(paste("The median of the transmission TAT is",
-               round(median(file$transmission_TAT, na.rm = TRUE)), "days"))
+  return(round(median(file$transmission_TAT, na.rm = TRUE)))
 }
 
 # Click Rate --------------------------------------------------------------
@@ -313,3 +320,42 @@ get_vol_WC <- function(file) sum(file$ZONE == "WC", na.rm = TRUE)
 get_vol_SC <- function(file) sum(file$ZONE == "SC", na.rm = TRUE)
 get_vol_PA <- function(file) sum(file$ZONE == "PA", na.rm = TRUE)
 get_vol_NA <- function(file) sum(is.na(file$ZONE))
+
+# Calc_KPI ----------------------------------------------------------------
+calc_kpi <- function(file_path)
+{
+  compiled <- get_TATs(get_region(file_path))
+  
+  data.frame(
+    metric = c(
+      "avg_tat",
+      "med_tat",
+      "avg_transm_tat",
+      "med_transm_tat",
+      "click_rate",
+      "validation_rate",
+      "retrieval_rate",
+      "true_validation_rate",
+      "transmission_rate",
+      "avg_orders_per_day",
+      "avg_orders_per_week",
+      "record_rate"
+    ),
+    
+    value = c(
+      get_tot_TAT_avg(compiled),
+      get_tot_TAT_med(compiled),
+      get_transm_TAT_avg(compiled),
+      get_transm_TAT_med(compiled),
+      get_CR(compiled),
+      get_VR(compiled),
+      get_RR(compiled),
+      get_TVR(compiled),
+      get_TR(compiled),
+      avg_orders_day(compiled),
+      avg_orders_week(compiled),
+      records_day(compiled)
+    )
+  )
+}
+
