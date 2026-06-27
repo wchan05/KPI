@@ -322,6 +322,13 @@ get_vol_PA <- function(file) sum(file$ZONE == "PA", na.rm = TRUE)
 get_vol_NA <- function(file) sum(is.na(file$ZONE))
 
 # Calc_KPI ----------------------------------------------------------------
+#' Calculate all KPI metrics
+#'
+#' Main function that processes a file path and returns all KPIs.
+#'
+#' @param file_path path to Excel file
+#' @return data.frame of KPI metrics
+#' @export
 calc_kpi <- function(file_path)
 {
   compiled <- get_TATs(get_region(file_path))
