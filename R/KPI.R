@@ -61,7 +61,7 @@ get_CR <- function(file)
   
   denominator <- nrow(file)
   
-  return (numerator/denominator)
+  return (numerator/denominator * 100)
 }
 
 # Validation Rate ---------------------------------------------------------
@@ -72,7 +72,7 @@ get_VR <- function(file)
   
   denominator <- nrow(file)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 # Retrieval Rate ----------------------------------------------------------
@@ -83,7 +83,7 @@ get_RR <- function(file)
   
   denominator <- nrow(file)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 # True Validation Rate ----------------------------------------------------
@@ -95,7 +95,7 @@ get_TVR <- function(file)
   denom <- file %>% filter(!is.na(`Client Last Accessed Site`))
   denominator <- nrow(denom)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 # Transmission Rate -------------------------------------------------------
@@ -107,7 +107,7 @@ get_TR <- function(file)
   denom <- file %>% filter(!is.na(`Client Submitted Username/Password`))
   denominator <- nrow(denom)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 
@@ -152,7 +152,7 @@ CR_NE <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator)
+  return (numerator/denominator * 100)
 }
 
 CR_WC <- function(file)
@@ -163,7 +163,7 @@ CR_WC <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator)
+  return (numerator/denominator * 100)
 }
 
 CR_SC <- function(file)
@@ -174,7 +174,7 @@ CR_SC <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator)
+  return (numerator/denominator * 100)
 }
 CR_PA <- function(file)
 {
@@ -184,7 +184,7 @@ CR_PA <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator)
+  return (numerator/denominator * 100)
 }
 
 CR_NA <- function(file)
@@ -195,7 +195,7 @@ CR_NA <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator)
+  return (numerator/denominator * 100)
 }
 
 # Validation Rate for Each Region -----------------------------------------
@@ -207,7 +207,7 @@ VR_NE <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 VR_WC <- function(file)
@@ -218,7 +218,7 @@ VR_WC <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 VR_SC <- function(file)
 {
@@ -228,7 +228,7 @@ VR_SC <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 VR_PA <- function(file)
@@ -239,7 +239,7 @@ VR_PA <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 VR_NA <- function(file)
@@ -250,7 +250,7 @@ VR_NA <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 # Retrieval Rate for Each Region ------------------------------------------
@@ -262,7 +262,7 @@ RR_NE <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 RR_WC <- function(file)
@@ -273,7 +273,7 @@ RR_WC <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 RR_SC <- function(file)
@@ -284,7 +284,7 @@ RR_SC <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 RR_PA <- function(file)
@@ -295,7 +295,7 @@ RR_PA <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 RR_NA <- function(file)
@@ -306,7 +306,7 @@ RR_NA <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator)
+  return(numerator/denominator * 100)
 }
 
 # Order Volume for each and overall ---------------------------------------
@@ -346,7 +346,19 @@ calc_kpi <- function(file_path)
       "transmission_rate",
       "avg_orders_per_day",
       "avg_orders_per_week",
-      "record_rate"
+      "record_rate",
+      
+      # Click Rate by Region
+      "CR_NE", "CR_WC", "CR_SC", "CR_PA", "CR_NA",
+      
+      # Validation Rate by Region
+      "VR_NE", "VR_WC", "VR_SC", "VR_PA", "VR_NA",
+      
+      # Retrieval Rate by Region
+      "RR_NE", "RR_WC", "RR_SC", "RR_PA", "RR_NA",
+      
+      # Volume by Region
+      "vol_NE", "vol_WC", "vol_SC", "vol_PA", "vol_NA"
     ),
     
     value = c(
@@ -361,7 +373,35 @@ calc_kpi <- function(file_path)
       get_TR(compiled),
       avg_orders_day(compiled),
       avg_orders_week(compiled),
-      records_day(compiled)
+      records_day(compiled),
+      
+      # Click Rate by Region
+      CR_NE(compiled),
+      CR_WC(compiled),
+      CR_SC(compiled),
+      CR_PA(compiled),
+      CR_NA(compiled),
+      
+      # Validation Rate by Region
+      VR_NE(compiled),
+      VR_WC(compiled),
+      VR_SC(compiled),
+      VR_PA(compiled),
+      VR_NA(compiled),
+      
+      # Retrieval Rate by Region
+      RR_NE(compiled),
+      RR_WC(compiled),
+      RR_SC(compiled),
+      RR_PA(compiled),
+      RR_NA(compiled),
+      
+      # Volume by Region
+      get_vol_NE(compiled),
+      get_vol_WC(compiled),
+      get_vol_SC(compiled),
+      get_vol_PA(compiled),
+      get_vol_NA(compiled)
     )
   )
 }
