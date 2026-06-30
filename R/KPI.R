@@ -124,7 +124,7 @@ avg_orders_day <- function(file)
 {
   num_days <- n_distinct(as.Date(file$`Order Date`)) 
   num_orders <- n_distinct(file$policy_number)
-  return(num_orders/num_days)
+  return(round(num_orders/num_days))
 }
 
 # Records Received/Day -------------------------------------------------------------
@@ -132,7 +132,7 @@ records_day <- function(file)
 {
   num_days <- n_distinct(as.Date(file$'Order Date'))
   num_records <- nrow(file %>% filter(!is.na(`Record Received`)))
-  return(num_records/num_days)
+  return(round(num_records/num_days))
 }
 
 # Average Orders/Week -----------------------------------------------------
@@ -140,7 +140,7 @@ avg_orders_week <- function(file)
 {
   num_weeks <- n_distinct(floor_date(as.Date(file$`Order Date`), "week"))
   num_orders <- n_distinct(file$policy_number)
-  return(num_orders/num_weeks)
+  return(round(num_orders/num_weeks))
 }
 
 # Click Rate for Each Region ----------------------------------------------
