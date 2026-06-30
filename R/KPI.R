@@ -61,7 +61,7 @@ get_CR <- function(file)
   
   denominator <- nrow(file)
   
-  return (numerator/denominator * 100)
+  return (round(numerator/denominator * 100, digits = 2))
 }
 
 # Validation Rate ---------------------------------------------------------
@@ -72,7 +72,7 @@ get_VR <- function(file)
   
   denominator <- nrow(file)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 # Retrieval Rate ----------------------------------------------------------
@@ -83,7 +83,7 @@ get_RR <- function(file)
   
   denominator <- nrow(file)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 # True Validation Rate ----------------------------------------------------
@@ -95,7 +95,7 @@ get_TVR <- function(file)
   denom <- file %>% filter(!is.na(`Client Last Accessed Site`))
   denominator <- nrow(denom)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 # Transmission Rate -------------------------------------------------------
@@ -107,7 +107,7 @@ get_TR <- function(file)
   denom <- file %>% filter(!is.na(`Client Submitted Username/Password`))
   denominator <- nrow(denom)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 
@@ -152,7 +152,7 @@ CR_NE <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator * 100)
+  return (round(numerator/denominator * 100, digits = 2))
 }
 
 CR_WC <- function(file)
@@ -163,7 +163,7 @@ CR_WC <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator * 100)
+  return (round(numerator/denominator * 100, digits = 2))
 }
 
 CR_SC <- function(file)
@@ -174,7 +174,7 @@ CR_SC <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator * 100)
+  return (round(numerator/denominator * 100, digits = 2))
 }
 CR_PA <- function(file)
 {
@@ -184,7 +184,7 @@ CR_PA <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator * 100)
+  return (round(numerator/denominator * 100, digits = 2))
 }
 
 CR_NA <- function(file)
@@ -195,7 +195,7 @@ CR_NA <- function(file)
   
   denominator <- nrow(sub)
   
-  return (numerator/denominator * 100)
+  return (round(numerator/denominator * 100, digits = 2))
 }
 
 # Validation Rate for Each Region -----------------------------------------
@@ -207,7 +207,7 @@ VR_NE <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 VR_WC <- function(file)
@@ -218,7 +218,7 @@ VR_WC <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 VR_SC <- function(file)
 {
@@ -228,7 +228,7 @@ VR_SC <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 VR_PA <- function(file)
@@ -239,7 +239,7 @@ VR_PA <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 VR_NA <- function(file)
@@ -250,7 +250,7 @@ VR_NA <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 # Retrieval Rate for Each Region ------------------------------------------
@@ -262,7 +262,7 @@ RR_NE <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 RR_WC <- function(file)
@@ -273,7 +273,7 @@ RR_WC <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 RR_SC <- function(file)
@@ -284,7 +284,7 @@ RR_SC <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 RR_PA <- function(file)
@@ -295,7 +295,7 @@ RR_PA <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 RR_NA <- function(file)
@@ -306,7 +306,7 @@ RR_NA <- function(file)
   
   denominator <- nrow(sub)
   
-  return(numerator/denominator * 100)
+  return(round(numerator/denominator * 100, digits = 2))
 }
 
 # Order Volume for each and overall ---------------------------------------
